@@ -1,0 +1,9 @@
+<library path="tamiyabot_firmware">
+    <class name="tamiyabot_firmware/TamiyabotInterface"
+      type="tamiyabot_firmware::TamiyabotInterface"
+      base_class_type="hardware_interface::SystemInterface">
+      <description>
+        Tamiyabot Hardware Interface
+      </description>
+    </class>
+  </library>

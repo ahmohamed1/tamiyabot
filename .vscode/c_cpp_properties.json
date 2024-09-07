@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/abdll/workshop/tamiya_ws/install/tamiyabot_firmware/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/abdll/workshop/tamiya_ws/src/tamiyabot/tamiyabot_controller/include/**",
+        "/home/abdll/workshop/tamiya_ws/src/tamiyabot/tamiyabot_description/include/**",
+        "/home/abdll/workshop/tamiya_ws/src/tamiyabot/tamiyabot_firmware/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

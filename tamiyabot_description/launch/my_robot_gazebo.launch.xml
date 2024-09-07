@@ -1,0 +1,22 @@
+<launch>
+    <let name="urdf_path" 
+         value="$(find-pkg-share tamiyabot_description)/urdf/tamiyabot.urdf.xacro" />
+    <let name="rviz_config_path"
+         value="$(find-pkg-share tamiyabot_description)/rviz/tamiyabot.rviz" />
+
+    <node pkg="robot_state_publisher" exec="robot_state_publisher">
+        <param name="robot_description" value="$(command 'xacro $(var urdf_path)')" />
+        <param name="use_sim_time" value="true"/>
+    </node>
+
+    <include file="$(find-pkg-share gazebo_ros)/launch/gazebo.launch.py">
+     </include>
+
+    <node pkg="gazebo_ros" exec="spawn_entity.py" args="-topic robot_description -entity car" />
+
+    <node pkg="controller_manager" exec="spawner" args="tamiyabot_controller" />
+    <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster" />
+
+    <node pkg="rviz2" exec="rviz2" output="screen" 
+    args="-d $(var rviz_config_path)"/>
+</launch>
