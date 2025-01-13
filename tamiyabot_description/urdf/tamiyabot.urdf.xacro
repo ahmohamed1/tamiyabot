@@ -3,6 +3,8 @@
     <xacro:include filename="$(find tamiyabot_description)/urdf/tamiyabot_gazebo.xacro"/>
     <!-- <xacro:include filename="$(find tamiyabot_description)/urdf/ros2_controller.xacro"/> -->
 
+    <xacro:include filename="$(find tamiyabot_description)/urdf/depth_camera.xacro"/>
+
     <material name="white">
         <color rgba="1 1 1 1"/>
     </material>
