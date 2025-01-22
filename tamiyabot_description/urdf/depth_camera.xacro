@@ -1,57 +1,62 @@
-<?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
-
-    <joint name="camera_joint" type="fixed">
-        <parent link="base_link"/>
-        <child link="camera_link"/>
-        <origin xyz="0.13 0 0.2" rpy="0 0 0"/>
-    </joint>
-
-    <link name="camera_link">
-        <visual>
-            <geometry>
-                <box size="0.010 0.03 0.03"/>
-            </geometry>
-            <material>
-                <color rgba="1 0 0 1"/>
-            </material>
-        </visual>
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="camera_model">
+    <link name="base_link">
+      <visual name="base_visual">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.1</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.2 0.2 0.2 1</ambient>
+        </material>
+      </visual>
     </link>
 
+    <!-- Camera Link -->
+    <link name="camera_link">
+      <pose>0.13 0 0.2 0 0 0</pose>
+      <visual name="camera_visual">
+        <geometry>
+          <box>
+            <size>0.01 0.03 0.03</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 0 0 1</ambient>
+        </material>
+      </visual>
+    </link>
 
-    <joint name="camera_optical_joint" type="fixed">
-        <parent link="camera_link"/>
-        <child link="camera_link_optical"/>
-        <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+    <!-- Fixed Joint -->
+    <joint name="camera_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>camera_link</child>
     </joint>
 
-    <link name="camera_link_optical"></link>
-
-    <gazebo reference="camera_link">
-        <material>Gazebo/Red</material>
-
-        <sensor name="camera" type="depth">
-            <pose> 0 0 0 0 0 0 </pose>
-            <visualize>true</visualize>
-            <update_rate>10</update_rate>
-            <camera>
-                <horizontal_fov>1.089</horizontal_fov>
-                <image>
-                    <format>B8G8R8</format>
-                    <width>640</width>
-                    <height>480</height>
-                </image>
-                <clip>
-                    <near>0.05</near>
-                    <far>8.0</far>
-                </clip>
-            </camera>
-            <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-                <frame_name>camera_link_optical</frame_name>
-                <min_depth>0.05</min_depth>
-                <max_depth>100.0</max_depth>
-            </plugin>
-        </sensor>
-    </gazebo>
-
-</robot>
+    <!-- Camera Sensor -->
+    <sensor name="camera_sensor" type="depth">
+      <pose>0 0 0 0 0 0</pose>
+      <camera>
+        <horizontal_fov>1.089</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>B8G8R8</format>
+        </image>
+        <clip>
+          <near>0.05</near>
+          <far>8.0</far>
+        </clip>
+      </camera>
+      <plugin name="ros2_camera" filename="ignition-gazebo-camera-system">
+        <ros>
+          <namespace>/camera</namespace>
+          <remapping>image_raw:=/camera/image_raw</remapping>
+          <remapping>camera_info:=/camera/camera_info</remapping>
+        </ros>
+      </plugin>
+    </sensor>
+  </model>
+</sdf>

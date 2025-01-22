@@ -1,9 +1,13 @@
 <?xml version="1.0"?>
 <robot name="tamiyabot" xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:include filename="$(find tamiyabot_description)/urdf/tamiyabot_gazebo.xacro"/>
-    <!-- <xacro:include filename="$(find tamiyabot_description)/urdf/ros2_controller.xacro"/> -->
 
-    <xacro:include filename="$(find tamiyabot_description)/urdf/depth_camera.xacro"/>
+    <!-- Load Simulated or Real Hardware Interfaces -->
+    <xacro:arg name="is_sim" default="true"/>
+
+    <!-- <xacro:include filename="$(find tamiyabot_description)/urdf/tamiyabot_gazebo.xacro"/>
+    <xacro:include filename="$(find tamiyabot_description)/urdf/ros2_controller.xacro"/> -->
+
+    <!-- <xacro:include filename="$(find tamiyabot_description)/urdf/depth_camera.xacro"/> -->
 
     <material name="white">
         <color rgba="1 1 1 1"/>
@@ -209,6 +213,7 @@
         <child link="rear_left_wheel"/>
         <origin xyz="-0.127 0.077 ${wheel_down}" rpy="0.0 0.0 0.0"/>
         <axis xyz="0 1 0"/>
+        <dynamics damping="0.2" />
     </joint>
 
     <joint name="rear_right_wheel_joint" type="continuous">
@@ -216,6 +221,7 @@
         <child link="rear_right_wheel"/>
         <origin xyz="-0.127 -0.077 ${wheel_down}" rpy="0.0 0.0 0.0"/>
         <axis xyz="0 1 0"/>
+        <dynamics damping="0.2" />
     </joint>
 
     <!-- front wheel joints -->
@@ -224,6 +230,7 @@
         <child link="front_left_wheel"/>
         <origin xyz="0.0 0.00 ${wheel_down}" rpy="0.0 0.0 0.0"/>
         <axis xyz="0 1 0"/>
+        <dynamics damping="0.2" />
     </joint>
 
 
@@ -232,7 +239,37 @@
         <child link="front_right_wheel"/>
         <origin xyz="0.0 0.00 ${wheel_down}" rpy="0.0 0.0 0.0"/>
         <axis xyz="0 1 0"/>
+        <dynamics damping="0.2" />
     </joint>
 
+     <ros2_control name="GazeboSystem" type="system">
+    <hardware>
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+    <joint name="rear_left_wheel_joint">
+      <command_interface name="velocity" />
+      <state_interface name="velocity" />
+      <state_interface name="position" />
+    </joint>
+    <joint name="rear_right_wheel_joint">
+      <command_interface name="velocity" />
+      <state_interface name="velocity" />
+      <state_interface name="position" />
+    </joint>
+    <joint name="front_left_steering_joint">
+      <command_interface name="position" />
+      <state_interface name="position" />
+    </joint>
+    <joint name="front_right_steering_joint">
+      <command_interface name="position" />
+      <state_interface name="position" />
+    </joint>
+  </ros2_control>
+
+      <gazebo>
+    <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <parameters>$(find tamiyabot_controller)/config/tamiyabot_controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
     
 </robot>
