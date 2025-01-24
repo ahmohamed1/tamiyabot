@@ -16,7 +16,7 @@ def generate_launch_description():
     tamiyabot_description = get_package_share_directory("tamiyabot_description")
 
     model_arg = DeclareLaunchArgument(name="model", default_value=os.path.join(
-                                        tamiyabot_description, "urdf", "tamiyabot.urdf.xacro"
+                                        tamiyabot_description, "urdf", "tamiyabot_1.urdf.xacro"
                                         ),
                                       description="Absolute path to robot urdf file"
     )
@@ -28,16 +28,18 @@ def generate_launch_description():
             ]
         )
     
-    ros_distro = os.environ["ROS_DISTRO"]
-    is_ignition = "True" if ros_distro == "humble" else "False"
-    
-    robot_description = ParameterValue(Command([
-            "xacro ",
-            LaunchConfiguration("model"),
-            " is_ignition:=",
-            is_ignition
-        ]),
-        value_type=str
+    model_arg = DeclareLaunchArgument(
+        name="model",
+        default_value=os.path.join(
+            get_package_share_directory("tamiyabot_description"),
+            "urdf",
+            "tamiyabot_model.urdf.xacro",
+        ),
+        description="URDF file to publish",
+    )
+
+    robot_description = ParameterValue(
+        Command(["xacro ", LaunchConfiguration("model")]), value_type=str
     )
 
     robot_state_publisher_node = Node(

@@ -1,99 +1,10 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" xmlns:ign="http://ignitionrobotics.org/schemas">
 
-    <!-- Ignition Gazebo material for the base -->
-    <ign:model>
-        <link name="base_link">
-            <visual>
-                <material>Gazebo/Yellow</material>
-            </visual>
-        </link>
-    </ign:model>
-
-    <!-- XACRO macro for setting wheel materials in Ignition Gazebo -->
-    <xacro:macro name="wheel_ignition" params="prefix">
-        <ign:model>
-            <link name="${prefix}">
-                <visual>
-                    <material>Gazebo/Grey</material>
-                </visual>
-            </link>
-        </ign:model>
-    </xacro:macro>
-
-    <!-- Apply wheel Ignition Gazebo materials -->
-    <xacro:wheel_ignition prefix="front_left_wheel" />
-    <xacro:wheel_ignition prefix="front_right_wheel" />
-    <xacro:wheel_ignition prefix="rear_left_wheel" />
-    <xacro:wheel_ignition prefix="rear_right_wheel" />
-
-    <gazebo reference="front_left_wheel">
-        <mu1>1000000000000000.0</mu1>
-        <mu2>1000000000000000.0</mu2>
-        <kp>1000000000000.0</kp>
-        <kd>10.0</kd>
-        <minDepth>0.001</minDepth>
-        <maxVel>0.1</maxVel>
-        <fdir1>1 0 0</fdir1>
-    </gazebo>
-
-    <gazebo reference="front_right_wheel">
-        <mu1>1000000000000000.0</mu1>
-        <mu2>1000000000000000.0</mu2>
-        <kp>1000000000000.0</kp>
-        <kd>10.0</kd>
-        <minDepth>0.001</minDepth>
-        <maxVel>0.1</maxVel>
-        <fdir1>1 0 0</fdir1>
-    </gazebo>
-
-    <gazebo reference="rear_left_wheel">
-        <mu1>1000000000000000.0</mu1>
-        <mu2>1000000000000000.0</mu2>
-        <kp>1000000000000.0</kp>
-        <kd>10.0</kd>
-        <minDepth>0.001</minDepth>
-        <maxVel>0.1</maxVel>
-        <fdir1>1 0 0</fdir1>
-    </gazebo>
-
-    <gazebo reference="rear_right_wheel">
-        <mu1>1000000000000000.0</mu1>
-        <mu2>1000000000000000.0</mu2>
-        <kp>1000000000000.0</kp>
-        <kd>10.0</kd>
-        <minDepth>0.001</minDepth>
-        <maxVel>0.1</maxVel>
-        <fdir1>1 0 0</fdir1>
-    </gazebo>
-    <!-- Ignition Gazebo material for the base again (if needed) -->
-    <ign:model>
-        <link name="base_link">
-            <visual>
-                <material>Gazebo/Yellow</material>
-            </visual>
-        </link>
-    </ign:model>
-
-
     <gazebo>
-        <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
-            <topic>joint_states</topic>
-            <joint_name>front_left_steering_joint</joint_name>
-            <joint_name>front_right_steering_joint</joint_name>
-            <joint_name>front_left_wheel_joint</joint_name>
-            <joint_name>front_right_wheel_joint</joint_name>
-            <joint_name>rear_left_wheel_joint</joint_name>
-            <joint_name>rear_right_wheel_joint</joint_name>
-        </plugin>
-
         <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
             <parameters>$(find tamiyabot_controller)/config/tamiyabot_controllers.yaml</parameters>
         </plugin>
-
-        <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
-            <render_engine>ogre2</render_engine>
-        </plugin>
-    </gazebo>
+  </gazebo>
 
 </robot>
