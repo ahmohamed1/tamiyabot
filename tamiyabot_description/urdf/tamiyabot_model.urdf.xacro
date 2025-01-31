@@ -6,11 +6,16 @@
 
     <xacro:include filename="$(find tamiyabot_description)/urdf/tamiyabot_gazebo.xacro"/>
     <xacro:include filename="$(find tamiyabot_description)/urdf/ros2_controller.xacro"/>
-    <xacro:include filename="$(find tamiyabot_description)/urdf/depth_camera.xacro"/>
+    <xacro:include filename="$(find tamiyabot_description)/urdf/camera.xacro"/>
+    <xacro:include filename="$(find tamiyabot_description)/urdf/lidar.xacro"/>
 
-    
-    <material name="silver">
-      <color rgba="0.700 0.700 0.700 1.000"/>
+
+    <material name="yellow">
+      <color rgba="0.700 0.700 0.0 1.000"/>
+    </material>
+
+    <material name="black">
+      <color rgba="0.0 0.0 0.0 1.000"/>
     </material>
 
     <link name="base_footprint"/>
@@ -26,7 +31,7 @@
         <geometry>
           <mesh filename="package://tamiyabot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
         </geometry>
-        <material name="silver"/>
+        <material name="yellow"/>
         <material/>
       </visual>
       <collision>
@@ -48,7 +53,7 @@
         <geometry>
           <mesh filename="package://tamiyabot_description/meshes/rear_left_wheel1.stl" scale="0.001 0.001 0.001"/>
         </geometry>
-        <material name="silver"/>
+        <material name="black"/>
         <material/>
       </visual>
       <collision>
@@ -70,7 +75,7 @@
         <geometry>
           <mesh filename="package://tamiyabot_description/meshes/rear_right_wheel1.stl" scale="0.001 0.001 0.001"/>
         </geometry>
-        <material name="silver"/>
+        <material name="black"/>
         <material/>
       </visual>
       <collision>
@@ -92,7 +97,7 @@
         <geometry>
           <mesh filename="package://tamiyabot_description/meshes/front_left_wheel1.stl" scale="0.001 0.001 0.001"/>
         </geometry>
-        <material name="silver"/>
+        <material name="black"/>
         <material/>
       </visual>
       <collision>
@@ -114,7 +119,7 @@
         <geometry>
           <mesh filename="package://tamiyabot_description/meshes/front_right_wheel1.stl" scale="0.001 0.001 0.001"/>
         </geometry>
-        <material name="silver"/>
+        <material name="black"/>
         <material/>
       </visual>
       <collision>
@@ -136,7 +141,7 @@
         <geometry>
           <mesh filename="package://tamiyabot_description/meshes/steering_right_link1.stl" scale="0.001 0.001 0.001"/>
         </geometry>
-        <material name="silver"/>
+        <material name="black"/>
         <material/>
       </visual>
       <collision>
@@ -158,7 +163,7 @@
         <geometry>
           <mesh filename="package://tamiyabot_description/meshes/steering_left_link1.stl" scale="0.001 0.001 0.001"/>
         </geometry>
-        <material name="silver"/>
+        <material name="black"/>
         <material/>
       </visual>
       <collision>
@@ -190,21 +195,7 @@
       <child link="rear_right_wheel1"/>
       <axis xyz="0.0 -1.0 0.0"/>
     </joint>
-
-    <joint name="front_right_wheel_joint" type="continuous">
-      <origin xyz="0.0 0.0 -0.004" rpy="0 0 0"/>
-      <parent link="steering_right_link1"/>
-      <child link="front_right_wheel1"/>
-      <axis xyz="0.0 -1.0 0.0"/>
-    </joint>
-
-    <joint name="front_left_wheel_joint" type="continuous">
-      <origin xyz="0.0 0.0 -0.004" rpy="0 0 0"/>
-      <parent link="steering_left_link1"/>
-      <child link="front_left_wheel1"/>
-      <axis xyz="0.0 1.0 0.0"/>
-    </joint>
-
+    
     <joint name="front_right_steering_joint" type="revolute">
       <origin xyz="-0.030009 -0.0685 -0.009" rpy="0 0 0"/>
       <parent link="base_link"/>
@@ -221,4 +212,19 @@
       <axis xyz="0.0 0.0 -1.0"/>
       <limit effort="1000.0" lower="-0.78" upper="0.78" velocity="30"/>
     </joint>
+
+    <joint name="front_right_wheel_joint" type="continuous">
+      <origin xyz="0.0 0.0 -0.004" rpy="0 0 0"/>
+      <parent link="steering_right_link1"/>
+      <child link="front_right_wheel1"/>
+      <axis xyz="0.0 -1.0 0.0"/>
+    </joint>
+
+    <joint name="front_left_wheel_joint" type="continuous">
+      <origin xyz="0.0 0.0 -0.004" rpy="0 0 0"/>
+      <parent link="steering_left_link1"/>
+      <child link="front_left_wheel1"/>
+      <axis xyz="0.0 1.0 0.0"/>
+    </joint>
+
 </robot>

@@ -75,7 +75,8 @@ def generate_launch_description():
         executable="create",
         output="screen",
         arguments=["-topic", "robot_description",
-                   "-name", "tamiyabot"],
+                   "-name", "tamiyabot",
+                   "-z", '0.05'],
     )
 
     gz_ros2_bridge = Node(
@@ -83,11 +84,18 @@ def generate_launch_description():
         executable="parameter_bridge",
         arguments=[
             "/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock",
-            "/imu@sensor_msgs/msg/Imu[gz.msgs.IMU"
+            "/imu@sensor_msgs/msg/Imu[gz.msgs.IMU",
+            "/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan"
         ],
         remappings=[
             ('/imu', '/imu/out'),
         ]
+    )
+
+    ros_gz_image_bridge = Node(
+        package="ros_gz_image",
+        executable="image_bridge",
+        arguments=["/camera/image_raw"]
     )
 
     return LaunchDescription([
@@ -97,5 +105,6 @@ def generate_launch_description():
         robot_state_publisher_node,
         gazebo,
         gz_spawn_entity,
-        gz_ros2_bridge
+        gz_ros2_bridge,
+        ros_gz_image_bridge,
     ])
