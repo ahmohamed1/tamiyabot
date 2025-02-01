@@ -76,7 +76,8 @@ def generate_launch_description():
         output="screen",
         arguments=["-topic", "robot_description",
                    "-name", "tamiyabot",
-                   "-z", '0.05'],
+                   "-z", '0.05',
+                   "-Y",'3.14'],
     )
 
     gz_ros2_bridge = Node(
@@ -88,7 +89,7 @@ def generate_launch_description():
             "/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan",
             '/camera@sensor_msgs/msg/Image@gz.msgs.Image',
             '/camera_info@sensor_msgs/msg/CameraInfo@gz.msgs.CameraInfo',
-            '/depth_camera@sensor_msgs/msg/Image@gz.msgs.Image'
+            # '/depth_camera@sensor_msgs/msg/Image@gz.msgs.Image'
         ],
         remappings=[
             ('/imu', '/imu/out'),
