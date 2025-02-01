@@ -87,7 +87,8 @@ def generate_launch_description():
             "/imu@sensor_msgs/msg/Imu[gz.msgs.IMU",
             "/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan",
             '/camera@sensor_msgs/msg/Image@gz.msgs.Image',
-            '/camera_info@sensor_msgs/msg/CameraInfo@gz.msgs.CameraInfo'
+            '/camera_info@sensor_msgs/msg/CameraInfo@gz.msgs.CameraInfo',
+            '/depth_camera@sensor_msgs/msg/Image@gz.msgs.Image'
         ],
         remappings=[
             ('/imu', '/imu/out'),
@@ -108,5 +109,5 @@ def generate_launch_description():
         gazebo,
         gz_spawn_entity,
         gz_ros2_bridge,
-        ros_gz_image_bridge,
+        # ros_gz_image_bridge,
     ])
