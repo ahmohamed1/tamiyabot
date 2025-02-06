@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="tamiyabot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Load Simulated or Real Hardware Interfaces -->
+    <xacro:arg name="is_sim" default="true"/>
+
+    <xacro:include filename="$(find tamiyabot_description)/urdf/tamiyabot_gazebo.xacro"/>
+    <xacro:include filename="$(find tamiyabot_description)/urdf/ros2_controller.xacro"/>
+    <!-- <xacro:include filename="$(find tamiyabot_description)/urdf/camera.xacro"/> -->
+    <!-- <xacro:include filename="$(find tamiyabot_description)/urdf/lidar.xacro"/> -->
+
+  <link name="base_footprint"/>
+
+  <material name="yellow">
+    <color rgba="0.700 0.700 0.0 1.000"/>
+  </material>
+
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.000"/>
+  </material>
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.2505 -0.0064254 0.076838" rpy="0 0 0" />
+      <mass
+        value="0.27374" />
+      <inertia ixx="0.00058985" ixy="2.2262E-06" ixz="0.00010607" iyy="0.00098884" iyz="1.6912E-07" izz="0.00082518" />
+    </inertial>
+    <visual>
+      <origin xyz="0.079 0.028 0.011" rpy="1.5708 0 1.5708" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/base_link.stl" />
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+    <collision>
+      <origin xyz="0.079 0.028 0.011" rpy="1.5708 0 1.5708" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/base_link.stl" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link
+    name="rear_right_wheel">
+    <inertial>
+      <origin
+        xyz="2.01708774683063E-10 0.000117398606297489 -1.65152391762291E-09"
+        rpy="0 0 0" />
+      <mass
+        value="0.0710370465839219" />
+      <inertia ixx="3.82546214608002E-05" ixy="-4.23922838047088E-10" ixz="1.87266331655804E-13" iyy="6.79726871995106E-05" iyz="-6.97421289528434E-10" izz="3.82546206479532E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/rear_right_wheel.STL" />
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/rear_right_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_right_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0 -0.0692 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="rear_right_wheel" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+  <link
+    name="rear_left_wheel">
+    <inertial>
+      <origin
+        xyz="8.17058115609726E-10 -0.000117398606298336 1.44935755064246E-09"
+        rpy="0 0 0" />
+      <mass
+        value="0.0710370465839065" />
+      <inertia ixx="3.82546212100943E-05" ixy="1.25490067842945E-10" ixz="-4.19521205958581E-13" iyy="6.79726871994976E-05" iyz="-8.0644855411232E-10" izz="3.82546208986442E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/rear_left_wheel.STL" />
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/rear_left_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link
+    name="front_right_steering">
+    <inertial>
+      <origin
+        xyz="0.00489855721643029 0.000998344223522657 3.03187632014201E-08"
+        rpy="0 0 0" />
+      <mass
+        value="0.00208850370560768" />
+      <inertia ixx="5.06505053700476E-08" ixy="-6.86503357532431E-08" ixz="3.87372051902334E-13" iyy="3.11048086284817E-07" iyz="-6.76010683211379E-14" izz="3.34832317084373E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/front_right_steering.STL" />
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/front_right_steering.STL" />
+      </geometry>
+    </collision>
+  </link>
+ 
+  <link
+    name="front_right_wheel">
+    <inertial>
+      <origin
+        xyz="9.73985430261781E-05 -0.000439428140629083 -1.67698399647018E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.0367446346195783" />
+      <inertia ixx="1.91701437416466E-05" ixy="4.29347903303383E-15" ixz="-1.46669714610521E-14" iyy="3.39984393334817E-05" iyz="-3.80508250154361E-09" izz="1.91701537552018E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/front_right_wheel.STL" />
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/front_right_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link
+    name="front_left_steering">
+    <inertial>
+      <origin
+        xyz="0.00489853403443033 -0.000998329639174483 5.2314660214936E-08"
+        rpy="0 0 0" />
+      <mass
+        value="0.00208850865134204" />
+      <inertia ixx="5.06502662014837E-08" ixy="6.8650568785729E-08" ixz="3.48395017585077E-13" iyy="3.11048414461092E-07" iyz="-1.06546424013654E-13" izz="3.3483285484163E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/front_left_steering.STL" />
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/front_left_steering.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link
+    name="front_left_wheel">
+    <inertial>
+      <origin
+        xyz="-9.75571518577745E-05 0.000450124133235946 -1.67965726766972E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.0368910311989609" />
+      <inertia ixx="1.9171406866921E-05" ixy="-5.22604209282804E-15" ixz="-4.43159667734626E-16" iyy="3.40005203391755E-05" iyz="3.80504395924598E-09" izz="1.91714169504207E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/front_left_wheel.STL" />
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/front_left_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link
+    name="camera_link">
+    <inertial>
+      <origin
+        xyz="-5.55111512312578E-17 -1.38777878078145E-17 -1.11022302462516E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.0279999999999994" />
+      <inertia ixx="1.23666666666664E-05" ixy="5.52059313638347E-22" ixz="-3.64224167319349E-20" iyy="1.86666666666659E-06" iyz="-6.71903203302239E-22" izz="1.23666666666664E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/camera_link.STL" />
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tamiyabot_description/meshes/camera_link.STL" />
+      </geometry>
+    </collision>
+  </link> 
+
+
+  <!-- Define the joints -->
+  <joint name="base_joint" type="fixed">
+      <parent link="base_footprint"/>
+      <child link="base_link"/>
+      <origin xyz="0.0 0.0 0.05" rpy="0.0 0.0 0.0"/>
+  </joint>
+
+  <joint name="rear_left_wheel_joint" type="continuous">
+    <origin xyz="0 0.0692 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="rear_left_wheel" />
+    <axis xyz="0 -1 0" />
+  </joint>
+
+
+  <joint name="front_right_steering_joint" type="revolute">
+    <origin xyz="0.264 -0.0679999999999999 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="front_right_steering" />
+    <axis xyz="0 0 1" />
+    <limit effort="1000.0" lower="-0.95" upper="0.95" velocity="30"/>
+  </joint>
+
+
+  <joint name="front_left_steering_joint" type="revolute">
+    <origin xyz="0.264 0.068 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="front_left_steering" />
+    <axis xyz="0 0 -1" />
+    <limit effort="1000.0" lower="-0.95" upper="0.95" velocity="30"/>
+  </joint>
+
+  <joint name="front_right_wheel_joint" type="continuous">
+    <origin xyz="0 -0.012115750717685 0" rpy="0 0 0" />
+    <parent link="front_right_steering" />
+    <child link="front_right_wheel" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+    <joint name="front_left_wheel_joint" type="continuous">
+    <origin xyz="0 0.012115750717685 0" rpy="0 0 0" />
+    <parent link="front_left_steering" />
+    <child link="front_left_wheel" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <joint name="camera_joint" type="fixed">
+    <origin
+      xyz="0.296764114866085 0.000110186283262037 0.190046430030239"
+      rpy="0 0.174532925199433 0" />
+    <parent link="base_link" />
+    <child link="camera_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+</robot>

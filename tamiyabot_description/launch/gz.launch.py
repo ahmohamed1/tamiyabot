@@ -17,7 +17,7 @@ def generate_launch_description():
     tamiyabot_description = get_package_share_directory("tamiyabot_description")
 
     model_arg = DeclareLaunchArgument(name="model", default_value=os.path.join(
-                                        tamiyabot_description, "urdf", "tamiyabot_1.urdf.xacro"
+                                        tamiyabot_description, "urdf", "tamiyabot_v1.urdf.xacro"
                                         ),
                                       description="Absolute path to robot urdf file"
     )
@@ -41,15 +41,6 @@ def generate_launch_description():
             ]
         )
     
-    model_arg = DeclareLaunchArgument(
-        name="model",
-        default_value=os.path.join(
-            get_package_share_directory("tamiyabot_description"),
-            "urdf",
-            "tamiyabot_model.urdf.xacro",
-        ),
-        description="URDF file to publish",
-    )
 
     robot_description = ParameterValue(
         Command(["xacro ", LaunchConfiguration("model")]), value_type=str
@@ -76,7 +67,8 @@ def generate_launch_description():
         output="screen",
         arguments=["-topic", "robot_description",
                    "-name", "tamiyabot",
-                   "-z", '0.05'],
+                #    "-z", '0.05',
+                   ],
     )
 
     gz_ros2_bridge = Node(

@@ -15,7 +15,7 @@ def generate_launch_description():
         default_value=os.path.join(
             get_package_share_directory("tamiyabot_description"),
             "urdf",
-            "tamiyabot_model.urdf.xacro",
+            "tamiyabot_v1.urdf.xacro",
         ),
         description="URDF file to publish",
     )
