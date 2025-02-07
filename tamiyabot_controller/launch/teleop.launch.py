@@ -12,7 +12,7 @@ def generate_launch_description():
 
     return launch.LaunchDescription([
         launch.actions.DeclareLaunchArgument('joy_vel', default_value='tamiyabot_controller/reference'),
-        # launch.actions.DeclareLaunchArgument('joy_config', default_value='xbox'),
+        launch.actions.DeclareLaunchArgument('joy_config', default_value='xbox'),
         launch.actions.DeclareLaunchArgument('joy_dev', default_value='0'),
         launch.actions.DeclareLaunchArgument('publish_stamped_twist', default_value='true'),
         launch.actions.DeclareLaunchArgument('config_filepath', default_value=os.path.join(
@@ -22,7 +22,7 @@ def generate_launch_description():
             package='joy', executable='joy_node', name='joy_node',
             parameters=[{
                 'device_id': joy_dev,
-                'deadzone': 0.3,
+                'deadzone': 0.2,
                 'autorepeat_rate': 20.0,
             }]),
         launch_ros.actions.Node(

@@ -51,6 +51,11 @@ def generate_launch_description():
         description="URDF file to publish",
     )
 
+    joint_state_publisher = Node(
+        package="joint_state_publisher",
+        executable="joint_state_publisher",
+    )
+
     robot_description = ParameterValue(
         Command(["xacro ", LaunchConfiguration("model")]), value_type=str
     )
@@ -77,7 +82,7 @@ def generate_launch_description():
         arguments=["-topic", "robot_description",
                    "-name", "tamiyabot",
                    "-z", '0.05',
-                   "-Y",'3.14'],
+                   "x", "-0.5"],
     )
 
     gz_ros2_bridge = Node(
@@ -110,5 +115,6 @@ def generate_launch_description():
         gazebo,
         gz_spawn_entity,
         gz_ros2_bridge,
+        # joint_state_publisher,
         # ros_gz_image_bridge,
     ])

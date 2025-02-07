@@ -8,12 +8,12 @@ public:
     TwistRelayNode() : Node("twist_relay")
     {
         controller_sub_ = this->create_subscription<geometry_msgs::msg::Twist>(
-            "/bumperbot_controller/cmd_vel_unstamped",
+            "/tamiyabot_controller/cmd_vel_unstamped",
             10,
             std::bind(&TwistRelayNode::controller_twist_callback, this, std::placeholders::_1)
         );
         controller_pub_ = this->create_publisher<geometry_msgs::msg::TwistStamped>(
-            "/bumperbot_controller/cmd_vel", 10);
+            "/tamiyabot_controller/cmd_vel", 10);
         joy_sub_ = this->create_subscription<geometry_msgs::msg::TwistStamped>(
             "/input_joy/cmd_vel_stamped",
             10,
@@ -24,7 +24,7 @@ public:
     }
 
 private:
-    void controller_twist_callback(const geometry_msgs::msg::Twist::SharedPtr msg)
+    void controller_twist_callback(const geometry_msgs::msg::TwistStamped::SharedPtr msg)
     {
         geometry_msgs::msg::TwistStamped twist_stamped;
         twist_stamped.header.stamp = get_clock()->now();
