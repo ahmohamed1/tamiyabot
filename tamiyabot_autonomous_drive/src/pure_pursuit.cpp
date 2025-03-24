@@ -42,8 +42,8 @@ private:
     double current_position_y_ = 0.0;
     double current_heading_ = 0.0;
     double lookahead_distance_ = 0.8;
-    double Lf = 0.5;
-    double WB = 0.36;
+    double Lf = 0.42;
+    double WB = 0.22;
 
     int visited_index = -1;
     nav_msgs::msg::Path::SharedPtr path_;

@@ -10,6 +10,10 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
+from launch.actions import RegisterEventHandler
+from launch.event_handlers import OnExecutionComplete, OnProcessExit
+from launch.actions import (DeclareLaunchArgument, EmitEvent, ExecuteProcess,
+                            LogInfo, RegisterEventHandler, TimerAction)
 
 
 def generate_launch_description():
@@ -107,6 +111,16 @@ def generate_launch_description():
         arguments=["/camera/image_raw"]
     )
 
+    controller_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(
+                get_package_share_directory("tamiyabot_controller"),
+                "launch",
+                "controller.launch.py"
+            )
+        ])
+    )
+    
     return LaunchDescription([
         model_arg,
         world_name_arg,
@@ -117,4 +131,16 @@ def generate_launch_description():
         gz_ros2_bridge,
         # joint_state_publisher,
         # ros_gz_image_bridge,
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=gz_spawn_entity,
+                on_exit=[
+                    LogInfo(msg="gz_spawn_entity has completed. Launching tamiyabot_controller..."),
+                    TimerAction(
+                        period=2.0,
+                        actions=[controller_launch]
+                    )
+                ]
+            )
+        )
     ])
