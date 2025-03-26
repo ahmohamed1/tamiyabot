@@ -7,7 +7,16 @@
   <xacro:include filename="$(find tamiyabot_description)/urdf/ros2_controller.xacro"/>
   <!-- <xacro:include filename="$(find tamiyabot_description)/urdf/camera.xacro"/> -->
   <!-- <xacro:include filename="$(find tamiyabot_description)/urdf/lidar.xacro"/> -->
-
+  
+  <xacro:property name="PI" value="3.1415926535897931" />
+  <xacro:property name="base_mass" value="8.0" /> <!-- arbitrary value for base mass -->
+  <xacro:property name="base_length" value="1.0" />
+  <xacro:property name="base_width" value="0.53" />
+  <xacro:property name="base_height" value="0.32" />
+  <xacro:property name="wheel_mass" value="0.1" /> <!-- arbitrary value for wheel mass -->
+  <xacro:property name="wheelbase" value="0.46" />
+  <xacro:property name="wheel_len" value="0.08" />
+  <xacro:property name="wheel_radius" value="0.047" />
 
   <material name="yellow">
     <color rgba="0.700 0.700 0.0 1.000"/>
@@ -18,6 +27,7 @@
   </material>
 
 <link name="base_footprint"/>
+
 <link name="base_link">
   <inertial>
     <origin xyz="-0.010832508707129422 -0.0319999966499438 0.07339904454848215" rpy="0 0 0"/>
@@ -194,18 +204,71 @@
   </collision>
 </link>
 
+<!-- rear wheels -->
+<!-- virtual rear wheel -->
+<link name="virtual_rear_wheel">
+    <visual>
+        <origin xyz="0.0 0.0 0.0" rpy="${PI/2} 0 0" />
+        <geometry>
+            <cylinder length="0.01" radius="${wheel_radius}" />
+        </geometry>
+        <material name="blue" />
+    </visual>
+    <inertial>
+    <mass value="0.1"/>  <!-- Adjust mass as needed -->
+    <inertia
+      ixx="0.001" ixy="0.0" ixz="0.0"
+      iyy="0.001" iyz="0.0"
+      izz="0.001"/>
+  </inertial>
+</link>
+<joint name="virtual_rear_wheel_joint" type="continuous">
+    <parent link="base_link" />
+    <child link="virtual_rear_wheel" />
+    <origin xyz="-0.234009 -0.032 -0.013" rpy="0 0 0" />
+    <axis xyz="0 1.0 0" />
+    <limit effort="100.0" velocity="100.0" />
+    <!-- <dynamics damping="0.2" /> -->
+</joint>
+
+<!-- front wheels -->
+<!-- virtual front wheel -->
+<link name="virtual_front_wheel">
+    <visual>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 0.0" />
+        <geometry>
+            <cylinder length="0.01" radius="${wheel_radius}" />
+        </geometry>
+        <material name="blue" />
+    </visual>
+    <inertial>
+    <mass value="0.1"/>  <!-- Adjust mass as needed -->
+    <inertia
+      ixx="0.001" ixy="0.0" ixz="0.0"
+      iyy="0.001" iyz="0.0"
+      izz="0.001"/>
+  </inertial>
+</link>
+<joint name="virtual_front_wheel_joint" type="revolute">
+    <parent link="base_link" />
+    <child link="virtual_front_wheel" />
+    <origin xyz="0.029991 -0.032 -0.017" rpy="0 0 0.0" />
+    <axis xyz="0 0 -1" />
+    <limit lower="-0.3488" upper="0.3488" effort="100.0" velocity="0.0" />
+    <!-- <dynamics damping="0.2" /> -->
+</joint>
 <!-- Define the joints -->
 <joint name="base_joint" type="fixed">
     <parent link="base_footprint"/>
     <child link="base_link"/>
     <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0"/>
 </joint>
-
 <joint name="rear_left_wheel_joint" type="continuous">
   <origin xyz="-0.234009 0.0155 -0.013" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="rear_left_wheel1"/>
   <axis xyz="0.0 1.0 0.0"/>
+  <mimic joint="virtual_rear_wheel_joint" multiplier="1.0" offset="0.0" />
 </joint>
 
 <joint name="rear_right_wheel_joint" type="continuous">
@@ -213,6 +276,7 @@
   <parent link="base_link"/>
   <child link="rear_right_wheel1"/>
   <axis xyz="0.0 1.0 0.0"/>
+  <mimic joint="virtual_rear_wheel_joint" multiplier="1.0" offset="0.0" />
 </joint>
 
 <joint name="front_right_steering_joint" type="revolute">
@@ -221,6 +285,7 @@
   <child link="steering_right_link1"/>
   <axis xyz="0.0 0.0 -1.0"/>
   <limit upper="0.785398" lower="-0.785398" effort="100000" velocity="30"/>
+  <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0" />
 </joint>
 
 <joint name="front_left_steering_joint" type="revolute">
@@ -229,6 +294,7 @@
   <child link="steering_left_link1"/>
   <axis xyz="0.0 0.0 -1.0"/>
   <limit upper="0.785398" lower="-0.785398" effort="100000" velocity="30"/>
+  <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0" />
 </joint>
 
 <joint name="front_right_wheel_joint" type="continuous">
