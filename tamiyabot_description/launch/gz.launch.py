@@ -18,6 +18,7 @@ from launch.actions import (DeclareLaunchArgument, EmitEvent, ExecuteProcess,
 
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default=True)
+    is_sim = LaunchConfiguration('is_sim', default=True)
     tamiyabot_description = get_package_share_directory("tamiyabot_description")
 
     model_arg = DeclareLaunchArgument(name="model", default_value=os.path.join(
@@ -56,8 +57,8 @@ def generate_launch_description():
     )
 
     joint_state_publisher = Node(
-        package="joint_state_publisher",
-        executable="joint_state_publisher",
+        package="joint_state_publisher_gui",
+        executable="joint_state_publisher_gui",
     )
 
     robot_description = ParameterValue(
