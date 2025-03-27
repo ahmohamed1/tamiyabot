@@ -14,6 +14,7 @@ from launch.actions import RegisterEventHandler
 from launch.event_handlers import OnExecutionComplete, OnProcessExit
 from launch.actions import (DeclareLaunchArgument, EmitEvent, ExecuteProcess,
                             LogInfo, RegisterEventHandler, TimerAction)
+from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
@@ -24,7 +25,7 @@ def generate_launch_description():
     model_arg = DeclareLaunchArgument(name="model", default_value=os.path.join(
                                         tamiyabot_description, "urdf", "tamiyabot_1.urdf.xacro"
                                         ),
-                                      description="Absolute path to robot urdf file"
+                                      description="Absolute path to robot xacro file"
     )
 
     world_name_arg = DeclareLaunchArgument(name="world_name", default_value="empty")
@@ -36,8 +37,6 @@ def generate_launch_description():
         ]
     )
 
-    model_path = str(Path(tamiyabot_description).parent.resolve())
-    model_path += pathsep + os.path.join(get_package_share_directory("tamiyabot_description"), 'models')
 
     gazebo_resource_path = SetEnvironmentVariable(
         name="GZ_SIM_RESOURCE_PATH",
@@ -54,11 +53,6 @@ def generate_launch_description():
             "tamiyabot_model.urdf.xacro",
         ),
         description="URDF file to publish",
-    )
-
-    joint_state_publisher = Node(
-        package="joint_state_publisher_gui",
-        executable="joint_state_publisher_gui",
     )
 
     robot_description = ParameterValue(
@@ -80,6 +74,13 @@ def generate_launch_description():
                 }.items()
              )
 
+    robot_controllers = PathJoinSubstitution(
+        [
+            FindPackageShare('tamiyabot_controller'),
+            'config',
+            'tamiyabot_controllers.yaml',
+        ]
+    )
     gz_spawn_entity = Node(
         package="ros_gz_sim",
         executable="create",
@@ -88,6 +89,22 @@ def generate_launch_description():
                    "-name", "tamiyabot",
                    "-z", '0.05',
                    "x", "-0.5"],
+    )
+
+    joint_state_broadcaster_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['joint_state_broadcaster'],
+    )
+    tamiyabot_steering_controller_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['tamiyabot_controller',
+                   '--param-file',
+                   robot_controllers,
+                   '--controller-ros-args',
+                   '-r /tamiyabot_controller/tf_odometry:=/tf',
+                   ],
     )
 
     gz_ros2_bridge = Node(
@@ -112,36 +129,36 @@ def generate_launch_description():
         arguments=["/camera/image_raw"]
     )
 
-    controller_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([
-            os.path.join(
-                get_package_share_directory("tamiyabot_controller"),
-                "launch",
-                "controller.launch.py"
-            )
-        ])
-    )
+
     
     return LaunchDescription([
+        gz_ros2_bridge,
         model_arg,
         world_name_arg,
         gazebo_resource_path,
         robot_state_publisher_node,
+        # Launch gazebo environment
         gazebo,
-        gz_spawn_entity,
-        gz_ros2_bridge,
-        # joint_state_publisher,
-        # ros_gz_image_bridge,
         RegisterEventHandler(
             event_handler=OnProcessExit(
                 target_action=gz_spawn_entity,
-                on_exit=[
-                    LogInfo(msg="gz_spawn_entity has completed. Launching tamiyabot_controller..."),
-                    TimerAction(
-                        period=2.0,
-                        actions=[controller_launch]
-                    )
-                ]
+                on_exit=[joint_state_broadcaster_spawner],
             )
-        )
+        ),
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=joint_state_broadcaster_spawner,
+                on_exit=[tamiyabot_steering_controller_spawner],
+            )
+        ),
+        gz_spawn_entity,
+        # Launch Arguments
+        DeclareLaunchArgument(
+            'use_sim_time',
+            default_value=use_sim_time,
+            description='If true, use simulated clock'),
+        DeclareLaunchArgument(
+            'description_format',
+            default_value='urdf',
+            description='Robot description format to use, urdf or sdf'),
     ])

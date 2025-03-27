@@ -11,7 +11,7 @@ def generate_launch_description():
     config_filepath = launch.substitutions.LaunchConfiguration('config_filepath')
 
     return launch.LaunchDescription([
-        launch.actions.DeclareLaunchArgument('joy_vel', default_value='tamiyabot_controller/reference'),
+        launch.actions.DeclareLaunchArgument('joy_vel', default_value='/tamiyabot_controller/reference'),
         launch.actions.DeclareLaunchArgument('joy_config', default_value='xbox'),
         launch.actions.DeclareLaunchArgument('joy_dev', default_value='0'),
         launch.actions.DeclareLaunchArgument('publish_stamped_twist', default_value='true'),
