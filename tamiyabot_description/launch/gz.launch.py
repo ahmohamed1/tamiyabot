@@ -104,7 +104,11 @@ def generate_launch_description():
                    robot_controllers,
                    '--controller-ros-args',
                    '-r /tamiyabot_controller/tf_odometry:=/tf',
-                   ],
+                   '--controller-ros-args',
+                   '-r /tamiyabot_controller/odometry:=/odom',
+                   '--controller-ros-args',
+                   '-r /tamiyabot_controller/reference:=/cmd_vel',
+                 ],
     )
 
     gz_ros2_bridge = Node(

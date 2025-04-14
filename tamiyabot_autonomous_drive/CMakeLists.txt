@@ -23,10 +23,10 @@ find_package(visualization_msgs REQUIRED)
 
 pkg_check_modules(SERIAL libserial)
 
-install(
-  DIRECTORY launch config
-  DESTINATION share/${PROJECT_NAME}
-)
+#install(
+#  DIRECTORY launch config
+#  DESTINATION share/${PROJECT_NAME}
+#)
 
 add_executable(pure_pursuit src/pure_pursuit.cpp)
 ament_target_dependencies(pure_pursuit rclcpp geometry_msgs sensor_msgs nav_msgs visualization_msgs tf2_ros)

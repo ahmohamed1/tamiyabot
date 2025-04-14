@@ -19,8 +19,8 @@ tamiyabot_controller:
     rear_wheels_radius: 0.0415
     front_steering: true
     reference_timeout: 2.0
-    rear_wheels_names: ['rear_left_wheel_joint', 'rear_right_wheel_joint']
-    front_wheels_names: ['left_wheel_steering_joint', 'right_wheel_steering_joint']
+    rear_wheels_names: [rear_right_wheel_joint,'rear_left_wheel_joint']
+    front_wheels_names: ['right_wheel_steering_joint', 'left_wheel_steering_joint']
     open_loop: false
     velocity_rolling_window_size: 10
     base_frame_id: base_footprint
@@ -29,3 +29,5 @@ tamiyabot_controller:
     twist_covariance_diagonal: [0.0, 7.0, 14.0, 21.0, 28.0, 35.0]
     pose_covariance_diagonal: [0.0, 7.0, 14.0, 21.0, 28.0, 35.0]
     position_feedback: false
+    use_sim_time: true               # Whether to use simulation time
+    # Added command velocity and odometry topics

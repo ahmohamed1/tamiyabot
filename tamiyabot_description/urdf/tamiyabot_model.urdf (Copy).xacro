@@ -22,12 +22,12 @@
 
 <link name="base_link">
   <inertial>
-    <origin xyz="-0.010832508707129422 0.0 0.07339904454848215" rpy="0 0 0"/>
+    <origin xyz="-0.010832508707129422 -0.0319999966499438 0.07339904454848215" rpy="0 0 0"/>
     <mass value="37.13312619630159"/>
     <inertia ixx="0.16987923440449046" iyy="0.3219956854189482" izz="0.3110549539990225" ixy="-5.542446526035638e-09" iyz="8.55484284800756e-09" ixz="-0.054011183378953734"/>
   </inertial>
   <visual>
-    <origin xyz="0 0.03 0" rpy="0 0 0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -35,7 +35,7 @@
     <material/>
   </visual>
   <collision>
-    <origin xyz="0 0.03 0" rpy="0 0 0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -49,7 +49,7 @@
     <inertia ixx="0.0010476743842937593" iyy="0.0015752996272435787" izz="0.0010476743842937758" ixy="8.673617379884035e-18" iyz="2.0599841277224584e-18" ixz="2.6020852139652106e-18"/>
   </inertial>
   <visual>
-    <origin xyz="0.234009 -0.03 0.013" rpy="0 0 0"/>
+    <origin xyz="0.234009 -0.0155 0.013" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/rear_left_wheel1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -57,7 +57,7 @@
     <material/>
   </visual>
   <collision>
-    <origin xyz="0.234009 -0.03 0.013" rpy="0 0 0"/>
+    <origin xyz="0.234009 -0.0155 0.013" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/rear_left_wheel1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -71,7 +71,7 @@
     <inertia ixx="0.001047674384293762" iyy="0.0015752996272436204" izz="0.0010476743842938174" ixy="0.0" iyz="3.0357660829594124e-18" ixz="4.336808689942018e-18"/>
   </inertial>
   <visual>
-    <origin xyz="0.234009 0.09 0.013" rpy="0 0 0"/>
+    <origin xyz="0.234009 0.0795 0.013" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/rear_right_wheel1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -79,7 +79,7 @@
     <material/>
   </visual>
   <collision>
-    <origin xyz="0.234009 0.09 0.013" rpy="0 0 0"/>
+    <origin xyz="0.234009 0.0795 0.013" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/rear_right_wheel1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -93,7 +93,7 @@
     <inertia ixx="6.951495375837513e-08" iyy="2.9377757708371727e-08" izz="7.177559136720569e-08" ixy="1.514494909690689e-18" iyz="-6.094884864274626e-16" ixz="6.352747104407253e-22"/>
   </inertial>
   <visual>
-    <origin xyz="-0.026 0.1 0.017" rpy="0 0 0"/>
+    <origin xyz="-0.029991 0.1005 0.017" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/steering_right_link1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -101,7 +101,7 @@
     <material/>
   </visual>
   <collision>
-    <origin xyz="-0.026 0.1 0.017" rpy="0 0 0"/>
+    <origin xyz="-0.029991 0.1005 0.017" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/steering_right_link1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -115,7 +115,7 @@
     <inertia ixx="0.0004316099354611056" iyy="0.000796368727658819" izz="0.0004316121960988347" ixy="7.37257477290143e-18" iyz="2.168404344971009e-18" ixz="5.800481622797449e-18"/>
   </inertial>
   <visual>
-    <origin xyz="-0.029991 0.095 0.013" rpy="0 0 0"/>
+    <origin xyz="-0.029991 0.1005 0.013" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/front_right_wheel1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -123,7 +123,7 @@
     <material/>
   </visual>
   <collision>
-    <origin xyz="-0.029991 0.095 0.013" rpy="0 0 0"/>
+    <origin xyz="-0.029991 0.1005 0.013" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/front_right_wheel1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -137,7 +137,7 @@
     <inertia ixx="6.951495375835819e-08" iyy="2.937775770836961e-08" izz="7.177559136719891e-08" ixy="-1.508989195533536e-18" iyz="6.09488062910989e-16" ixz="0.0"/>
   </inertial>
   <visual>
-    <origin xyz="-0.03 -0.02 0.017" rpy="0 0 0"/>
+    <origin xyz="-0.029991 -0.0365 0.017" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/steering_left_link1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -145,7 +145,7 @@
     <material/>
   </visual>
   <collision>
-    <origin xyz="-0.03 -0.02 0.017" rpy="0 0 0"/>
+    <origin xyz="-0.029991 -0.0365 0.017" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/steering_left_link1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -159,7 +159,7 @@
     <inertia ixx="0.0004316099354611104" iyy="0.0007963687276588275" izz="0.00043161219609884295" ixy="7.37257477290143e-18" iyz="-1.0842021724855044e-19" ixz="-7.589415207398531e-19"/>
   </inertial>
   <visual>
-    <origin xyz="-0.029991 -0.035 0.013" rpy="0 0 0"/>
+    <origin xyz="-0.029991 -0.0365 0.013" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/front_left_wheel1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -167,7 +167,7 @@
     <material/>
   </visual>
   <collision>
-    <origin xyz="-0.029991 -0.035 0.013" rpy="0 0 0"/>
+    <origin xyz="-0.029991 -0.0365 0.013" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/front_left_wheel1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -181,7 +181,7 @@
     <inertia ixx="0.0001182406250000035" iyy="1.5700000000003905e-05" izz="0.0001182406249999996" ixy="-1.8973538018496328e-18" iyz="4.336808689942018e-19" ixz="4.336808689942018e-19"/>
   </inertial>
   <visual>
-    <origin xyz="-0.059991 0.032 -0.182" rpy="0 0 0"/>
+    <origin xyz="-0.079991 0.032 -0.162" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/Camera11.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -189,7 +189,7 @@
     <material/>
   </visual>
   <collision>
-    <origin xyz="-0.059991 0.032 -0.182" rpy="0 0 0"/>
+    <origin xyz="-0.079991 0.032 -0.162" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/Camera11.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -200,25 +200,25 @@
 <joint name="base_joint" type="fixed">
     <parent link="base_footprint"/>
     <child link="base_link"/>
-    <origin xyz="0.0 0.0 0.01" rpy="0.0 0.0 0.0"/>
+    <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0"/>
 </joint>
 
 <joint name="rear_left_wheel_joint" type="continuous">
-  <origin xyz="-0.234009 0.06 -0.013" rpy="0 0 0"/>
+  <origin xyz="-0.234009 0.0155 -0.013" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="rear_left_wheel1"/>
   <axis xyz="0.0 1.0 0.0"/>
 </joint>
 
 <joint name="rear_right_wheel_joint" type="continuous">
-  <origin xyz="-0.234009 -0.06 -0.013" rpy="0 0 0"/>
+  <origin xyz="-0.234009 -0.0795 -0.013" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="rear_right_wheel1"/>
   <axis xyz="0.0 1.0 0.0"/>
 </joint>
 
 <joint name="right_wheel_steering_joint" type="revolute">
-  <origin xyz="0.028 -0.06 -0.017" rpy="0 0 0"/>
+  <origin xyz="0.029991 -0.1005 -0.017" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="steering_right_link1"/>
   <axis xyz="0.0 0.0 -1.0"/>
@@ -226,7 +226,7 @@
 </joint>
 
 <joint name="left_wheel_steering_joint" type="revolute">
-  <origin xyz="0.028 0.06 -0.017" rpy="0 0 0"/>
+  <origin xyz="0.029991 0.0365 -0.017" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="steering_left_link1"/>
   <axis xyz="0.0 0.0 -1.0"/>
@@ -234,21 +234,21 @@
 </joint>
 
 <joint name="front_right_wheel_joint" type="continuous">
-  <origin xyz="0.0 0.0 0.004" rpy="0 0 0"/>
+  <origin xyz="0.0 0.01 0.004" rpy="0 0 0"/>
   <parent link="steering_right_link1"/>
   <child link="front_right_wheel1"/>
   <axis xyz="0.0 1.0 0.0"/>
 </joint>
 
 <joint name="front_left_wheel_joint" type="continuous">
-  <origin xyz="0.0 0.0 0.004" rpy="0 0 0"/>
+  <origin xyz="0.0 -0.01 0.004" rpy="0 0 0"/>
   <parent link="steering_left_link1"/>
   <child link="front_left_wheel1"/>
   <axis xyz="0.0 1.0 0.0"/>
 </joint>
 
 <joint name="camera_joint" type="fixed">
-  <origin xyz="0.079991 0.0 0.162" rpy="0 0.785398 0"/>
+  <origin xyz="0.079991 -0.032 0.162" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="Camera11"/>
 </joint>
