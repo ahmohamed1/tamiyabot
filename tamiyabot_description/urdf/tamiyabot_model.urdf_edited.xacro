@@ -22,7 +22,7 @@
 
 <link name="base_link">
   <inertial>
-    <origin xyz="-0.010832508707129422 0.0 0.07339904454848215" rpy="0 0 0"/>
+    <origin xyz="-0.010832508707129422 -0.0319999966499438 0.07339904454848215" rpy="0 0 0"/>
     <mass value="37.13312619630159"/>
     <inertia ixx="0.16987923440449046" iyy="0.3219956854189482" izz="0.3110549539990225" ixy="-5.542446526035638e-09" iyz="8.55484284800756e-09" ixz="-0.054011183378953734"/>
   </inertial>
@@ -93,7 +93,7 @@
     <inertia ixx="6.951495375837513e-08" iyy="2.9377757708371727e-08" izz="7.177559136720569e-08" ixy="1.514494909690689e-18" iyz="-6.094884864274626e-16" ixz="6.352747104407253e-22"/>
   </inertial>
   <visual>
-    <origin xyz="-0.026 0.1 0.017" rpy="0 0 0"/>
+    <origin xyz="0.0 0.06 0.017" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/steering_right_link1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -101,7 +101,7 @@
     <material/>
   </visual>
   <collision>
-    <origin xyz="-0.026 0.1 0.017" rpy="0 0 0"/>
+    <origin xyz="0.0 0.0 0.017" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/steering_right_link1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -137,7 +137,7 @@
     <inertia ixx="6.951495375835819e-08" iyy="2.937775770836961e-08" izz="7.177559136719891e-08" ixy="-1.508989195533536e-18" iyz="6.09488062910989e-16" ixz="0.0"/>
   </inertial>
   <visual>
-    <origin xyz="-0.03 -0.02 0.017" rpy="0 0 0"/>
+    <origin xyz="0.0 0.0 0.017" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/steering_left_link1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -145,7 +145,7 @@
     <material/>
   </visual>
   <collision>
-    <origin xyz="-0.03 -0.02 0.017" rpy="0 0 0"/>
+    <origin xyz="0.0 0.0 0.017" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/steering_left_link1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -181,7 +181,7 @@
     <inertia ixx="0.0001182406250000035" iyy="1.5700000000003905e-05" izz="0.0001182406249999996" ixy="-1.8973538018496328e-18" iyz="4.336808689942018e-19" ixz="4.336808689942018e-19"/>
   </inertial>
   <visual>
-    <origin xyz="-0.059991 0.032 -0.182" rpy="0 0 0"/>
+    <origin xyz="-0.079991 0.032 -0.162" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/Camera11.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -189,7 +189,7 @@
     <material/>
   </visual>
   <collision>
-    <origin xyz="-0.059991 0.032 -0.182" rpy="0 0 0"/>
+    <origin xyz="-0.079991 0.032 -0.162" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://tamiyabot_description/meshes/Camera11.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -248,7 +248,7 @@
 </joint>
 
 <joint name="camera_joint" type="fixed">
-  <origin xyz="0.079991 0.0 0.162" rpy="0 0.785398 0"/>
+  <origin xyz="0.079991 0.0 0.162" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="Camera11"/>
 </joint>
