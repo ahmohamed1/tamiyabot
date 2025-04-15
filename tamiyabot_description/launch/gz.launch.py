@@ -15,6 +15,7 @@ from launch.event_handlers import OnExecutionComplete, OnProcessExit
 from launch.actions import (DeclareLaunchArgument, EmitEvent, ExecuteProcess,
                             LogInfo, RegisterEventHandler, TimerAction)
 from launch_ros.substitutions import FindPackageShare
+from launch.actions import TimerAction
 
 
 def generate_launch_description():
@@ -96,6 +97,8 @@ def generate_launch_description():
         executable='spawner',
         arguments=['joint_state_broadcaster'],
     )
+
+    # Modify the controller spawner to ensure odometry publishing
     tamiyabot_steering_controller_spawner = Node(
         package='controller_manager',
         executable='spawner',
@@ -104,11 +107,15 @@ def generate_launch_description():
                    robot_controllers,
                    '--controller-ros-args',
                    '-r /tamiyabot_controller/tf_odometry:=/tf',
-                   '--controller-ros-args',
-                   '-r /tamiyabot_controller/odometry:=/odom',
-                   '--controller-ros-args',
-                   '-r /tamiyabot_controller/reference:=/cmd_vel',
                  ],
+    )
+
+    # Wrap the controller spawner in a TimerAction for delay
+    delayed_controller_spawner = TimerAction(
+        period=7.0,  # 5 seconds delay
+        actions=[
+            tamiyabot_steering_controller_spawner
+        ]
     )
 
     gz_ros2_bridge = Node(
@@ -134,6 +141,20 @@ def generate_launch_description():
     )
 
 
+    odom_relay = Node(
+        package='topic_tools',
+        executable='relay',
+        name='odom_relay',
+        arguments=['/tamiyabot_controller/odometry', '/odom']
+    )
+
+    cmd_vel_relay = Node(
+        package='topic_tools',
+        executable='relay',
+        name='cmd_vel_relay',
+        arguments=['/cmd_vel','/tamiyabot_controller/reference']
+    )
+
     
     return LaunchDescription([
         gz_ros2_bridge,
@@ -152,10 +173,13 @@ def generate_launch_description():
         RegisterEventHandler(
             event_handler=OnProcessExit(
                 target_action=joint_state_broadcaster_spawner,
-                on_exit=[tamiyabot_steering_controller_spawner],
+                on_exit=[delayed_controller_spawner],
             )
         ),
         gz_spawn_entity,
+        odom_relay,       # Add odom relay
+        cmd_vel_relay,    # Add cmd_vel relay
+
         # Launch Arguments
         DeclareLaunchArgument(
             'use_sim_time',
